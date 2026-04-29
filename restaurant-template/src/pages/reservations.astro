@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReservationForm from '../components/reservation/ReservationForm';
+---
+
+<BaseLayout title="Reservations" description="Book a table at our restaurant.">
+  <div class="mx-auto max-w-3xl px-4 py-10">
+    <h1 class="text-3xl font-bold mb-2">Make a Reservation</h1>
+    <p class="text-muted-foreground mb-8">
+      Reserve your table online. Parties up to 20 guests — for larger events, please call us.
+    </p>
+    <ReservationForm client:load />
+  </div>
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MenuGrid from '../components/menu/MenuGrid';
+import CartButton from '../components/cart/CartButton';
+
+const supabase = Astro.locals.supabase;
+
+const [{ data: items }, { data: categories }] = await Promise.all([
+  supabase.from('menu_items').select('id,name,description,price_cents,image_url,dietary_tags,category_id').eq('is_available', true).order('name'),
+  supabase.from('menu_categories').select('id,name').eq('is_active', true).order('sort_order'),
+]);
+---
+
+<BaseLayout title="Menu" description="Browse our full menu and order online.">
+  <div class="mx-auto max-w-7xl px-4 py-10">
+    <h1 class="text-3xl font-bold mb-8">Our Menu</h1>
+    <MenuGrid client:load items={items ?? []} categories={categories ?? []} />
+  </div>
+  <CartButton client:load />
+</BaseLayout>

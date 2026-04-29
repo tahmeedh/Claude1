@@ -1,0 +1,64 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
+
+const supabase = Astro.locals.supabase;
+const today = new Date();
+const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString();
+const weekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7).toISOString();
+
+const [
+  { data: todayOrders },
+  { data: pendingOrders },
+  { data: todayReservations },
+  { data: weeklyLoyalty },
+] = await Promise.all([
+  supabase.from('orders').select('total_cents').eq('status', 'paid').gte('created_at', todayStart),
+  supabase.from('orders').select('id').eq('status', 'paid'),
+  supabase.from('reservations').select('id').gte('reservation_time', todayStart),
+  supabase.from('loyalty_transactions').select('points').gte('created_at', weekStart).gt('points', 0),
+]);
+
+const todayRevenue = (todayOrders ?? []).reduce((s: number, o: { total_cents: number }) => s + o.total_cents, 0);
+const pointsThisWeek = (weeklyLoyalty ?? []).reduce((s: number, t: { points: number }) => s + t.points, 0);
+---
+
+<AdminLayout title="Dashboard">
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-sm font-medium text-muted-foreground">Today's Revenue</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="text-2xl font-bold">${(todayRevenue / 100).toFixed(2)}</p>
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-sm font-medium text-muted-foreground">Paid Orders</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="text-2xl font-bold">{pendingOrders?.length ?? 0}</p>
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-sm font-medium text-muted-foreground">Today's Reservations</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="text-2xl font-bold">{todayReservations?.length ?? 0}</p>
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-sm font-medium text-muted-foreground">Points Issued (7d)</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="text-2xl font-bold">{pointsThisWeek}</p>
+      </CardContent>
+    </Card>
+  </div>
+</AdminLayout>

@@ -1,0 +1,19 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ReservationsCalendar from '../../components/admin/ReservationsCalendar';
+
+const supabase = Astro.locals.supabase;
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const { data: reservations } = await supabase
+  .from('reservations')
+  .select('*')
+  .gte('reservation_time', today.toISOString())
+  .order('reservation_time');
+---
+
+<AdminLayout title="Reservations">
+  <ReservationsCalendar client:load initialReservations={reservations ?? []} />
+</AdminLayout>

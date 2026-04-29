@@ -1,0 +1,16 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import OrdersTable from '../../components/admin/OrdersTable';
+
+const supabase = Astro.locals.supabase;
+
+const { data: orders } = await supabase
+  .from('orders')
+  .select('id,status,fulfillment,total_cents,guest_email,guest_name,created_at,points_earned')
+  .order('created_at', { ascending: false })
+  .limit(100);
+---
+
+<AdminLayout title="Orders">
+  <OrdersTable client:load initialOrders={orders ?? []} />
+</AdminLayout>

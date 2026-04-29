@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/account/login?next=/account/orders');
+
+const supabase = Astro.locals.supabase;
+
+const { data: orders } = await supabase
+  .from('orders')
+  .select('id,status,fulfillment,total_cents,created_at,points_earned')
+  .eq('user_id', user.id)
+  .order('created_at', { ascending: false });
+---
+
+<BaseLayout title="My Orders">
+  <div class="mx-auto max-w-3xl px-4 py-10">
+    <h1 class="text-2xl font-bold mb-6">My Orders</h1>
+
+    {(!orders || orders.length === 0) ? (
+      <p class="text-muted-foreground">No orders yet. <a href="/menu" class="text-primary hover:underline">Browse the menu</a>.</p>
+    ) : (
+      <div class="space-y-4">
+        {orders.map((order: { id: string; status: string; fulfillment: string; total_cents: number; created_at: string; points_earned: number | null }) => (
+          <div class="rounded-lg border p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-mono text-sm text-muted-foreground">#{order.id.slice(0, 8)}</p>
+                <p class="font-semibold capitalize">{order.status} · {order.fulfillment}</p>
+                <p class="text-sm text-muted-foreground">{new Date(order.created_at).toLocaleString()}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-lg font-bold">${(order.total_cents / 100).toFixed(2)}</p>
+                {order.points_earned && <p class="text-xs text-muted-foreground">+{order.points_earned} pts</p>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

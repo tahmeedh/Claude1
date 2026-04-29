@@ -1,0 +1,15 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import MenuEditor from '../../components/admin/MenuEditor';
+
+const supabase = Astro.locals.supabase;
+
+const [{ data: items }, { data: categories }] = await Promise.all([
+  supabase.from('menu_items').select('*').order('name'),
+  supabase.from('menu_categories').select('id,name').order('sort_order'),
+]);
+---
+
+<AdminLayout title="Menu">
+  <MenuEditor client:load initialItems={items ?? []} categories={categories ?? []} />
+</AdminLayout>
