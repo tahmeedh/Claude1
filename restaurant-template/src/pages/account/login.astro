@@ -1,19 +1,48 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import LoginForm from '../../components/auth/LoginForm';
+import AuthTabs from '../../components/auth/AuthTabs';
 
 const next = Astro.url.searchParams.get('next') ?? '/account/orders';
+const tab = Astro.url.searchParams.get('tab') === 'signup' ? 'signup' : 'signin';
 
 // Already logged in → redirect
 if (Astro.locals.user) return Astro.redirect(next);
 ---
 
-<BaseLayout title="Sign In">
-  <div class="mx-auto max-w-sm px-4 py-16">
+<BaseLayout title="Sign In / Create Account">
+  <div class="mx-auto max-w-md px-4 py-12">
+    <!-- Header -->
     <div class="text-center mb-8">
-      <h1 class="text-2xl font-bold">Welcome back</h1>
-      <p class="text-muted-foreground mt-2">Sign in to track orders and earn rewards</p>
+      <div class="text-5xl mb-3">🍽</div>
+      <h1 class="text-2xl font-bold">
+        {tab === 'signup' ? 'Create your account' : 'Welcome back'}
+      </h1>
+      <p class="text-muted-foreground mt-2 text-sm">
+        {tab === 'signup'
+          ? 'Join us to earn loyalty rewards, track orders, and book tables.'
+          : 'Sign in to track orders and earn rewards.'}
+      </p>
     </div>
-    <LoginForm client:load mode="magic" next={next} />
+
+    <!-- Auth tabs (Sign In / Create Account) -->
+    <div class="rounded-2xl border bg-card shadow-sm p-6">
+      <AuthTabs client:load defaultTab={tab} next={next} />
+    </div>
+
+    <!-- Trust signals -->
+    <div class="mt-6 grid grid-cols-3 gap-3 text-center">
+      <div class="text-xs text-muted-foreground">
+        <div class="text-lg mb-1">🔒</div>
+        Secure &amp; encrypted
+      </div>
+      <div class="text-xs text-muted-foreground">
+        <div class="text-lg mb-1">⭐</div>
+        Earn loyalty points
+      </div>
+      <div class="text-xs text-muted-foreground">
+        <div class="text-lg mb-1">📦</div>
+        Track your orders
+      </div>
+    </div>
   </div>
 </BaseLayout>

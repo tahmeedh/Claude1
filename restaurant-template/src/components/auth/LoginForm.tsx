@@ -7,9 +7,10 @@ import { supabaseBrowser } from '../../lib/supabase/browser';
 type Props = {
   mode: 'magic' | 'password';
   next?: string;
+  onSwitchToSignUp?: () => void;
 };
 
-export default function LoginForm({ mode, next = '/' }: Props) {
+export default function LoginForm({ mode, next = '/', onSwitchToSignUp }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [sent, setSent] = useState(false);
@@ -38,9 +39,19 @@ export default function LoginForm({ mode, next = '/' }: Props) {
 
   if (sent) {
     return (
-      <div className="text-center space-y-2">
+      <div className="text-center space-y-3 py-4">
+        <div className="text-4xl">📬</div>
         <p className="text-lg font-semibold">Check your email</p>
-        <p className="text-muted-foreground text-sm">We sent a magic link to <strong>{email}</strong>.</p>
+        <p className="text-muted-foreground text-sm">
+          We sent a magic link to <strong>{email}</strong>.<br />
+          Click it to sign in — no password needed.
+        </p>
+        <button
+          onClick={() => { setSent(false); setEmail(''); }}
+          className="text-primary text-sm font-medium hover:underline mt-2 block mx-auto"
+        >
+          Use a different email
+        </button>
       </div>
     );
   }
@@ -48,19 +59,46 @@ export default function LoginForm({ mode, next = '/' }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required autoFocus />
+        <Label htmlFor="email">Email address</Label>
+        <Input
+          id="email"
+          type="email"
+          placeholder="jane@example.com"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+          autoFocus
+        />
       </div>
       {mode === 'password' && (
         <div>
           <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+          />
         </div>
       )}
-      {error && <p className="text-sm text-destructive">{error}</p>}
-      <Button type="submit" disabled={loading} className="w-full">
+      {error && <p className="text-sm text-destructive bg-destructive/10 rounded-md px-3 py-2">{error}</p>}
+      <Button type="submit" disabled={loading} className="w-full" size="lg">
         {loading ? 'Please wait…' : mode === 'magic' ? 'Send Magic Link' : 'Sign In'}
       </Button>
+
+      {onSwitchToSignUp && (
+        <p className="text-center text-sm text-muted-foreground">
+          Don't have an account?{' '}
+          <button
+            type="button"
+            onClick={onSwitchToSignUp}
+            className="text-primary font-medium hover:underline"
+          >
+            Create one
+          </button>
+        </p>
+      )}
     </form>
   );
 }
