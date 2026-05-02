@@ -2,30 +2,215 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const supabase = Astro.locals.supabase;
-const { data: featured } = await supabase
+const { data: featured } = supabase ? await supabase
   .from('menu_items')
   .select('id,name,description,price_cents,image_url')
   .eq('is_featured', true)
   .eq('is_available', true)
-  .limit(3);
+  .limit(3) : { data: null };
 ---
 
 <BaseLayout title="Restaurant — Fine Dining" description="Welcome to our restaurant. Order online, make reservations, and earn rewards.">
-  <!-- Hero -->
-  <section class="relative bg-gradient-to-br from-primary/10 to-background py-24 px-4">
-    <div class="mx-auto max-w-4xl text-center">
-      <h1 class="text-5xl font-bold tracking-tight sm:text-6xl">
+
+  <!-- Hero: Restaurant City Game Style -->
+  <section class="city-hero relative overflow-hidden">
+
+    <!-- Animated sky gradient -->
+    <div class="sky-bg absolute inset-0"></div>
+
+    <!-- Sun -->
+    <div class="sun absolute"></div>
+
+    <!-- Clouds -->
+    <div class="cloud cloud-1 absolute"></div>
+    <div class="cloud cloud-2 absolute"></div>
+    <div class="cloud cloud-3 absolute"></div>
+
+    <!-- Floating food items -->
+    <div class="food-float absolute" style="left:8%;animation-delay:0s;">🍕</div>
+    <div class="food-float absolute" style="left:18%;animation-delay:1.2s;">🍔</div>
+    <div class="food-float absolute" style="left:30%;animation-delay:2.4s;">🍜</div>
+    <div class="food-float absolute" style="left:68%;animation-delay:0.6s;">🍣</div>
+    <div class="food-float absolute" style="left:78%;animation-delay:1.8s;">🍰</div>
+    <div class="food-float absolute" style="left:90%;animation-delay:3s;">🥗</div>
+    <div class="food-float absolute" style="left:50%;animation-delay:3.6s;">🍷</div>
+
+    <!-- Sparkles -->
+    <div class="sparkle absolute" style="left:12%;top:20%;animation-delay:0s;">✨</div>
+    <div class="sparkle absolute" style="left:35%;top:15%;animation-delay:0.8s;">⭐</div>
+    <div class="sparkle absolute" style="left:60%;top:22%;animation-delay:1.6s;">✨</div>
+    <div class="sparkle absolute" style="left:82%;top:18%;animation-delay:2.4s;">⭐</div>
+
+    <!-- Isometric city skyline (SVG) -->
+    <div class="cityscape absolute bottom-0 left-0 right-0">
+      <svg viewBox="0 0 1440 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <!-- Back buildings (darker) -->
+        <rect x="0"   y="120" width="80"  height="100" fill="#c8a97e" rx="4"/>
+        <rect x="10"  y="80"  width="60"  height="40"  fill="#d4b896" rx="4"/>
+        <rect x="90"  y="90"  width="70"  height="130" fill="#b8955e" rx="4"/>
+        <rect x="100" y="60"  width="50"  height="32"  fill="#c9a870" rx="4"/>
+        <rect x="170" y="100" width="90"  height="120" fill="#e8c99a" rx="4"/>
+        <rect x="200" y="70"  width="30"  height="32"  fill="#d4b07a" rx="4"/>
+        <rect x="270" y="85"  width="75"  height="135" fill="#c4a06a" rx="4"/>
+        <rect x="355" y="110" width="65"  height="110" fill="#dbb88a" rx="4"/>
+        <rect x="430" y="75"  width="100" height="145" fill="#c8a47c" rx="4"/>
+        <rect x="460" y="50"  width="40"  height="27"  fill="#d9b88c" rx="4"/>
+        <rect x="540" y="95"  width="80"  height="125" fill="#b89560" rx="4"/>
+        <rect x="630" y="80"  width="90"  height="140" fill="#e0bc8a" rx="4"/>
+        <rect x="660" y="55"  width="30"  height="27"  fill="#cca870" rx="4"/>
+        <rect x="730" y="100" width="70"  height="120" fill="#c4a06a" rx="4"/>
+        <rect x="810" y="85"  width="85"  height="135" fill="#d8b47e" rx="4"/>
+        <rect x="840" y="60"  width="25"  height="27"  fill="#e4c08a" rx="4"/>
+        <rect x="905" y="90"  width="95"  height="130" fill="#bfa070" rx="4"/>
+        <rect x="1010" y="75" width="80"  height="145" fill="#d0a870" rx="4"/>
+        <rect x="1040" y="50" width="20"  height="27"  fill="#dcb880" rx="4"/>
+        <rect x="1100" y="95" width="75"  height="125" fill="#c8a46a" rx="4"/>
+        <rect x="1185" y="80" width="90"  height="140" fill="#e0bc80" rx="4"/>
+        <rect x="1285" y="100" width="75" height="120" fill="#c4a074" rx="4"/>
+        <rect x="1370" y="85" width="70"  height="135" fill="#d4aa78" rx="4"/>
+
+        <!-- Windows on back buildings (lit up) -->
+        <rect x="15"  y="90"  width="12" height="10" fill="#ffe9a0" rx="1" opacity="0.9"/>
+        <rect x="35"  y="90"  width="12" height="10" fill="#ffe9a0" rx="1" opacity="0.7"/>
+        <rect x="95"  y="100" width="12" height="10" fill="#ffe9a0" rx="1" opacity="0.9"/>
+        <rect x="115" y="100" width="12" height="10" fill="#ffda80" rx="1" opacity="0.8"/>
+        <rect x="175" y="115" width="14" height="11" fill="#ffe9a0" rx="1" opacity="0.9"/>
+        <rect x="200" y="115" width="14" height="11" fill="#ffe9a0" rx="1" opacity="0.7"/>
+        <rect x="225" y="115" width="14" height="11" fill="#ffda80" rx="1" opacity="0.8"/>
+        <rect x="440" y="90"  width="14" height="11" fill="#ffe9a0" rx="1" opacity="0.9"/>
+        <rect x="465" y="90"  width="14" height="11" fill="#ffda80" rx="1" opacity="0.8"/>
+        <rect x="490" y="90"  width="14" height="11" fill="#ffe9a0" rx="1" opacity="0.7"/>
+        <rect x="640" y="95"  width="14" height="11" fill="#ffe9a0" rx="1" opacity="0.9"/>
+        <rect x="665" y="95"  width="14" height="11" fill="#ffda80" rx="1" opacity="0.8"/>
+
+        <!-- Front buildings (brighter, colorful like game) -->
+        <!-- Restaurant 1 - Orange -->
+        <rect x="30"  y="140" width="110" height="80" fill="#f4845f" rx="6"/>
+        <rect x="55"  y="125" width="60"  height="18" fill="#f9a07a" rx="3"/>
+        <rect x="50"  y="175" width="30"  height="45" fill="#7c4e32" rx="2"/>
+        <rect x="90"  y="175" width="30"  height="45" fill="#7c4e32" rx="2"/>
+        <!-- windows -->
+        <rect x="42"  y="152" width="22" height="18" fill="#ffe9a0" rx="2" opacity="0.95"/>
+        <rect x="72"  y="152" width="22" height="18" fill="#ffe9a0" rx="2" opacity="0.9"/>
+        <rect x="102" y="152" width="22" height="18" fill="#ffe9a0" rx="2" opacity="0.95"/>
+
+        <!-- Restaurant 2 - Teal/Green -->
+        <rect x="200" y="130" width="130" height="90" fill="#4caf7d" rx="6"/>
+        <rect x="215" y="115" width="100" height="18" fill="#6dcf97" rx="3"/>
+        <rect x="225" y="170" width="35"  height="50" fill="#2d6e4e" rx="2"/>
+        <rect x="270" y="170" width="35"  height="50" fill="#2d6e4e" rx="2"/>
+        <!-- windows -->
+        <rect x="215" y="145" width="25" height="20" fill="#c8f5e0" rx="2" opacity="0.9"/>
+        <rect x="250" y="145" width="25" height="20" fill="#c8f5e0" rx="2" opacity="0.85"/>
+        <rect x="285" y="145" width="25" height="20" fill="#c8f5e0" rx="2" opacity="0.9"/>
+
+        <!-- Restaurant 3 - Blue/Purple -->
+        <rect x="390" y="125" width="140" height="95" fill="#6c7fd8" rx="6"/>
+        <rect x="405" y="110" width="110" height="18" fill="#8b9fea" rx="3"/>
+        <rect x="420" y="170" width="38"  height="50" fill="#3d4b99" rx="2"/>
+        <rect x="470" y="170" width="38"  height="50" fill="#3d4b99" rx="2"/>
+        <!-- windows -->
+        <rect x="405" y="140" width="28" height="20" fill="#d0d8ff" rx="2" opacity="0.9"/>
+        <rect x="445" y="140" width="28" height="20" fill="#d0d8ff" rx="2" opacity="0.85"/>
+        <rect x="485" y="140" width="28" height="20" fill="#d0d8ff" rx="2" opacity="0.9"/>
+
+        <!-- Restaurant 4 - Yellow -->
+        <rect x="590" y="135" width="125" height="85" fill="#f5c842" rx="6"/>
+        <rect x="605" y="120" width="95"  height="18" fill="#f9da70" rx="3"/>
+        <rect x="615" y="172" width="33"  height="48" fill="#8c6e00" rx="2"/>
+        <rect x="660" y="172" width="33"  height="48" fill="#8c6e00" rx="2"/>
+        <!-- windows -->
+        <rect x="603" y="150" width="24" height="18" fill="#fff8cc" rx="2" opacity="0.95"/>
+        <rect x="637" y="150" width="24" height="18" fill="#fff8cc" rx="2" opacity="0.9"/>
+        <rect x="671" y="150" width="24" height="18" fill="#fff8cc" rx="2" opacity="0.95"/>
+
+        <!-- Restaurant 5 - Pink/Red -->
+        <rect x="780" y="128" width="135" height="92" fill="#e85d8a" rx="6"/>
+        <rect x="795" y="113" width="105" height="18" fill="#f07aa8" rx="3"/>
+        <rect x="805" y="170" width="36"  height="50" fill="#8c1a44" rx="2"/>
+        <rect x="855" y="170" width="36"  height="50" fill="#8c1a44" rx="2"/>
+        <!-- windows -->
+        <rect x="795" y="143" width="26" height="20" fill="#ffd0e8" rx="2" opacity="0.9"/>
+        <rect x="833" y="143" width="26" height="20" fill="#ffd0e8" rx="2" opacity="0.85"/>
+        <rect x="871" y="143" width="26" height="20" fill="#ffd0e8" rx="2" opacity="0.9"/>
+
+        <!-- Restaurant 6 - Orange/Brown -->
+        <rect x="980" y="132" width="128" height="88" fill="#d4813c" rx="6"/>
+        <rect x="995" y="117" width="98"  height="18" fill="#e89a55" rx="3"/>
+        <rect x="1005" y="170" width="35" height="50" fill="#7a3e10" rx="2"/>
+        <rect x="1053" y="170" width="35" height="50" fill="#7a3e10" rx="2"/>
+        <!-- windows -->
+        <rect x="995"  y="147" width="25" height="19" fill="#ffe4c0" rx="2" opacity="0.9"/>
+        <rect x="1030" y="147" width="25" height="19" fill="#ffe4c0" rx="2" opacity="0.85"/>
+        <rect x="1065" y="147" width="25" height="19" fill="#ffe4c0" rx="2" opacity="0.9"/>
+
+        <!-- Restaurant 7 - Purple -->
+        <rect x="1175" y="125" width="135" height="95" fill="#9b59b6" rx="6"/>
+        <rect x="1190" y="110" width="105" height="18" fill="#b07cc9" rx="3"/>
+        <rect x="1200" y="170" width="37"  height="50" fill="#5b1f7a" rx="2"/>
+        <rect x="1250" y="170" width="37"  height="50" fill="#5b1f7a" rx="2"/>
+        <!-- windows -->
+        <rect x="1190" y="140" width="27" height="20" fill="#e8c8f8" rx="2" opacity="0.9"/>
+        <rect x="1228" y="140" width="27" height="20" fill="#e8c8f8" rx="2" opacity="0.85"/>
+        <rect x="1266" y="140" width="27" height="20" fill="#e8c8f8" rx="2" opacity="0.9"/>
+
+        <!-- Street signs / awnings -->
+        <rect x="55"  y="123" width="60" height="5" fill="#e05530" rx="2"/>
+        <rect x="215" y="113" width="100" height="5" fill="#2d9e60" rx="2"/>
+        <rect x="405" y="108" width="110" height="5" fill="#4a5cbe" rx="2"/>
+        <rect x="605" y="118" width="95"  height="5" fill="#c8a000" rx="2"/>
+        <rect x="795" y="111" width="105" height="5" fill="#b02060" rx="2"/>
+        <rect x="995" y="115" width="98"  height="5" fill="#a05010" rx="2"/>
+        <rect x="1190" y="108" width="105" height="5" fill="#700098" rx="2"/>
+
+        <!-- Ground / street -->
+        <rect x="0" y="218" width="1440" height="2" fill="#a8895c"/>
+        <rect x="0" y="215" width="1440" height="5" fill="#c8a870" opacity="0.5"/>
+
+        <!-- Street lamps -->
+        <rect x="160" y="175" width="6"  height="45" fill="#888" rx="2"/>
+        <ellipse cx="163" cy="173" rx="10" ry="5" fill="#aaa"/>
+        <circle cx="163" cy="170" r="4" fill="#ffe9a0" opacity="0.9"/>
+
+        <rect x="370" y="170" width="6"  height="50" fill="#888" rx="2"/>
+        <ellipse cx="373" cy="168" rx="10" ry="5" fill="#aaa"/>
+        <circle cx="373" cy="165" r="4" fill="#ffe9a0" opacity="0.9"/>
+
+        <rect x="560" y="172" width="6"  height="48" fill="#888" rx="2"/>
+        <ellipse cx="563" cy="170" rx="10" ry="5" fill="#aaa"/>
+        <circle cx="563" cy="167" r="4" fill="#ffe9a0" opacity="0.9"/>
+
+        <rect x="760" y="170" width="6"  height="50" fill="#888" rx="2"/>
+        <ellipse cx="763" cy="168" rx="10" ry="5" fill="#aaa"/>
+        <circle cx="763" cy="165" r="4" fill="#ffe9a0" opacity="0.9"/>
+
+        <rect x="950" y="175" width="6"  height="45" fill="#888" rx="2"/>
+        <ellipse cx="953" cy="173" rx="10" ry="5" fill="#aaa"/>
+        <circle cx="953" cy="170" r="4" fill="#ffe9a0" opacity="0.9"/>
+
+        <rect x="1155" y="170" width="6" height="50" fill="#888" rx="2"/>
+        <ellipse cx="1158" cy="168" rx="10" ry="5" fill="#aaa"/>
+        <circle cx="1158" cy="165" r="4" fill="#ffe9a0" opacity="0.9"/>
+      </svg>
+    </div>
+
+    <!-- Hero content -->
+    <div class="relative z-10 mx-auto max-w-4xl text-center px-4 pt-20 pb-52">
+      <div class="game-badge inline-block mb-4 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-widest">
+        Now Open
+      </div>
+      <h1 class="hero-title text-5xl font-bold tracking-tight sm:text-7xl drop-shadow-lg">
         Taste the Difference
       </h1>
-      <p class="mt-6 text-xl text-muted-foreground max-w-2xl mx-auto">
+      <p class="hero-sub mt-6 text-xl max-w-2xl mx-auto drop-shadow">
         Fresh ingredients, bold flavors, memorable moments. Order online for pickup or delivery, or book your table.
       </p>
       <div class="mt-10 flex flex-wrap gap-4 justify-center">
-        <a href="/menu" class="rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90 transition-colors">
-          Order Online
+        <a href="/menu" class="btn-game-primary rounded-xl px-8 py-3.5 text-base font-bold shadow-lg transition-all hover:scale-105 active:scale-95">
+          🍽 Order Online
         </a>
-        <a href="/reservations" class="rounded-md border px-6 py-3 text-sm font-semibold hover:bg-accent transition-colors">
-          Reserve a Table
+        <a href="/reservations" class="btn-game-secondary rounded-xl px-8 py-3.5 text-base font-bold shadow-lg transition-all hover:scale-105 active:scale-95">
+          📅 Reserve a Table
         </a>
       </div>
     </div>
@@ -37,7 +222,7 @@ const { data: featured } = await supabase
       <h2 class="text-3xl font-bold mb-8 text-center">Chef's Picks</h2>
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((item: { id: string; name: string; description: string | null; price_cents: number; image_url: string | null }) => (
-          <div class="rounded-xl border overflow-hidden">
+          <div class="rounded-xl border overflow-hidden hover:shadow-lg transition-shadow">
             {item.image_url && (
               <img src={item.image_url} alt={item.name} class="h-48 w-full object-cover" />
             )}
@@ -76,3 +261,154 @@ const { data: featured } = await supabase
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Sky gradient — warm sunset like Restaurant City */
+  .city-hero {
+    min-height: 520px;
+    background: transparent;
+  }
+
+  .sky-bg {
+    background: linear-gradient(
+      170deg,
+      #1a1a4e 0%,
+      #2d2b7a 15%,
+      #5c3f9e 30%,
+      #c0517a 50%,
+      #f4845f 65%,
+      #fbb96b 80%,
+      #fce09b 100%
+    );
+    animation: skyShift 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes skyShift {
+    0%   { filter: brightness(1) hue-rotate(0deg); }
+    50%  { filter: brightness(1.05) hue-rotate(5deg); }
+    100% { filter: brightness(0.95) hue-rotate(-5deg); }
+  }
+
+  /* Sun */
+  .sun {
+    width: 90px;
+    height: 90px;
+    right: 12%;
+    top: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff7a0 30%, #ffda40 60%, #ffaa00 100%);
+    box-shadow: 0 0 40px 20px rgba(255,210,60,0.5), 0 0 80px 40px rgba(255,180,0,0.2);
+    animation: sunPulse 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes sunPulse {
+    from { transform: scale(1);   box-shadow: 0 0 40px 20px rgba(255,210,60,0.5), 0 0 80px 40px rgba(255,180,0,0.2); }
+    to   { transform: scale(1.07); box-shadow: 0 0 55px 28px rgba(255,210,60,0.6), 0 0 100px 50px rgba(255,180,0,0.25); }
+  }
+
+  /* Clouds */
+  .cloud {
+    height: 36px;
+    border-radius: 40px;
+    background: rgba(255,255,255,0.82);
+    top: 14%;
+    filter: blur(1px);
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255,255,255,0.82);
+    border-radius: 50%;
+  }
+  .cloud-1 { width: 120px; left: -130px; animation: cloudDrift 28s linear infinite; }
+  .cloud-1::before { width: 60px; height: 50px; top: -20px; left: 20px; }
+  .cloud-1::after  { width: 40px; height: 35px; top: -14px; left: 60px; }
+
+  .cloud-2 { width: 90px; left: -100px; top: 26%; animation: cloudDrift 38s linear infinite; animation-delay: -12s; }
+  .cloud-2::before { width: 45px; height: 38px; top: -16px; left: 15px; }
+  .cloud-2::after  { width: 30px; height: 28px; top: -10px; left: 48px; }
+
+  .cloud-3 { width: 100px; left: -110px; top: 8%; animation: cloudDrift 48s linear infinite; animation-delay: -24s; }
+  .cloud-3::before { width: 50px; height: 42px; top: -18px; left: 18px; }
+  .cloud-3::after  { width: 35px; height: 30px; top: -12px; left: 55px; }
+
+  @keyframes cloudDrift {
+    from { transform: translateX(0); }
+    to   { transform: translateX(1600px); }
+  }
+
+  /* Floating food */
+  .food-float {
+    font-size: 1.8rem;
+    bottom: 220px;
+    animation: foodFloat 6s ease-in-out infinite alternate;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+  @keyframes foodFloat {
+    0%   { transform: translateY(0px)   rotate(-5deg); }
+    50%  { transform: translateY(-22px) rotate(3deg); }
+    100% { transform: translateY(-8px)  rotate(-3deg); }
+  }
+
+  /* Sparkles */
+  .sparkle {
+    font-size: 1.2rem;
+    animation: sparklePop 2.5s ease-in-out infinite alternate;
+  }
+  @keyframes sparklePop {
+    0%   { transform: scale(0.7) rotate(0deg);   opacity: 0.5; }
+    50%  { transform: scale(1.3) rotate(20deg);  opacity: 1; }
+    100% { transform: scale(0.9) rotate(-10deg); opacity: 0.7; }
+  }
+
+  /* Cityscape */
+  .cityscape {
+    width: 100%;
+    height: 220px;
+    pointer-events: none;
+  }
+  .cityscape svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Hero text */
+  .hero-title {
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 0 30px rgba(255,180,80,0.4);
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  /* Game badge */
+  .game-badge {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: #fff;
+    letter-spacing: 0.1em;
+  }
+
+  /* CTA Buttons */
+  .btn-game-primary {
+    background: linear-gradient(135deg, #ff6b35, #f7c59f);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .btn-game-primary:hover {
+    background: linear-gradient(135deg, #ff8555, #f9d5b0);
+  }
+
+  .btn-game-secondary {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+  .btn-game-secondary:hover {
+    background: rgba(255,255,255,0.35);
+  }
+</style>
