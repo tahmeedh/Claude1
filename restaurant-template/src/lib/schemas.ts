@@ -14,6 +14,7 @@ export const CheckoutBodySchema = z.object({
     phone: z.string().min(7),
   }).optional(),
   redeemRewardId: z.string().uuid().optional(),
+  promoCode: z.string().optional(),
 });
 
 export const ReservationBodySchema = z.object({

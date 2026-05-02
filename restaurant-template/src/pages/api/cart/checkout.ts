@@ -14,6 +14,7 @@ const Body = z.object({
     name: z.string().min(1), email: z.string().email(), phone: z.string().min(7),
   }).optional(),
   redeemRewardId: z.string().uuid().optional(),
+  promoCode: z.string().optional(),
 });
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -52,7 +53,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   const tax = Math.round(subtotal * 0.0875);
 
-  // Loyalty redemption
+  // Loyalty reward redemption
   let discountCents = 0;
   let pointsRedeemed = 0;
   if (body.redeemRewardId && locals.user) {
@@ -68,7 +69,29 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
   }
 
-  const total = Math.max(50, subtotal + tax - discountCents); // Stripe minimum
+  // Promo code validation (welcome discount etc.)
+  let promoCodeId: string | null = null;
+  let promoDiscountCents = 0;
+  if (body.promoCode) {
+    const { data: promo } = await supabaseAdmin
+      .from('promo_codes')
+      .select('id, discount_percent, used, expires_at, user_id')
+      .eq('code', body.promoCode.trim().toUpperCase())
+      .maybeSingle();
+
+    if (promo && !promo.used) {
+      const notExpired = !promo.expires_at || new Date(promo.expires_at) > new Date();
+      // If code is tied to a user, it must match the logged-in user
+      const ownerMatch = !promo.user_id || (locals.user && promo.user_id === locals.user.id);
+      if (notExpired && ownerMatch) {
+        promoCodeId = promo.id;
+        promoDiscountCents = Math.round(subtotal * (promo.discount_percent / 100));
+      }
+    }
+  }
+
+  const totalDiscountCents = discountCents + promoDiscountCents;
+  const total = Math.max(50, subtotal + tax - totalDiscountCents);
 
   // Create draft order
   const { data: order, error } = await supabaseAdmin.from('orders').insert({
@@ -93,17 +116,34 @@ export const POST: APIRoute = async ({ request, locals }) => {
     quantity: lineMap.get(it.id)!,
   })));
 
+  // Mark promo code as used immediately to prevent double-use
+  if (promoCodeId) {
+    await supabaseAdmin
+      .from('promo_codes')
+      .update({ used: true })
+      .eq('id', promoCodeId);
+  }
+
   const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: 'payment',
     line_items: stripeLines,
     customer_email: locals.user?.email ?? body.guest?.email,
     success_url: `${import.meta.env.PUBLIC_SITE_URL}/account/orders?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${import.meta.env.PUBLIC_SITE_URL}/menu`,
-    metadata: { order_id: order.id, points_redeemed: String(pointsRedeemed) },
+    metadata: {
+      order_id: order.id,
+      points_redeemed: String(pointsRedeemed),
+      promo_code_id: promoCodeId ?? '',
+    },
   };
 
-  if (discountCents > 0) {
-    const coupon = await stripe.coupons.create({ amount_off: discountCents, currency: 'usd', duration: 'once' });
+  if (totalDiscountCents > 0) {
+    const coupon = await stripe.coupons.create({
+      amount_off: totalDiscountCents,
+      currency: 'usd',
+      duration: 'once',
+      name: body.promoCode ? `Welcome ${body.promoCode}` : 'Loyalty reward',
+    });
     sessionParams.discounts = [{ coupon: coupon.id }];
   }
 
