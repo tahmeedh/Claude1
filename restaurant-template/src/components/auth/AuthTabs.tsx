@@ -37,13 +37,10 @@ export default function AuthTabs({ defaultTab = 'signin', next = '/account/order
       </div>
 
       {tab === 'signin' ? (
-        <>
-          <LoginForm
-            mode="magic"
-            next={next}
-            onSwitchToSignUp={() => setTab('signup')}
-          />
-        </>
+        <LoginForm
+          next={next}
+          onSwitchToSignUp={() => setTab('signup')}
+        />
       ) : (
         <SignUpForm
           next={next}
