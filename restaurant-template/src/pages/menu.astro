@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MenuGrid from '../components/menu/MenuGrid';
-import CartButton from '../components/cart/CartButton';
+import MenuPageClient from '../components/menu/MenuPageClient';
 
 const supabase = Astro.locals.supabase;
 
@@ -11,10 +10,50 @@ const [{ data: items }, { data: categories }] = await Promise.all([
 ]);
 ---
 
-<BaseLayout title="Menu" description="Browse our full menu and order online.">
-  <div class="mx-auto max-w-7xl px-4 py-10">
-    <h1 class="text-3xl font-bold mb-8">Our Menu</h1>
-    <MenuGrid client:load items={items ?? []} categories={categories ?? []} />
+<BaseLayout title="Our Menu — Restaurant City" description="Browse the full Restaurant City menu. Order online for pickup or delivery.">
+
+  <!-- RC-themed menu header -->
+  <div class="menu-header py-12 px-4 text-center relative overflow-hidden">
+    <div class="relative z-10">
+      <div class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4" style="background:rgba(200,180,240,0.3);color:#8060c0;border:1.5px solid rgba(200,180,240,0.6);">
+        🍽 Full Menu
+      </div>
+      <h1 class="text-4xl font-bold mb-3" style="color:#1a3050;">Our Menu</h1>
+      <p class="text-muted-foreground max-w-md mx-auto">
+        Fresh, seasonal ingredients. Everything made from scratch, every day.
+      </p>
+    </div>
+    <!-- Animated food emojis -->
+    <div class="menu-emoji menu-emoji-1 absolute pointer-events-none select-none">🍕</div>
+    <div class="menu-emoji menu-emoji-2 absolute pointer-events-none select-none">🍝</div>
+    <div class="menu-emoji menu-emoji-3 absolute pointer-events-none select-none">🍷</div>
+    <div class="menu-emoji menu-emoji-4 absolute pointer-events-none select-none">🎂</div>
   </div>
-  <CartButton client:load />
+
+  <div class="mx-auto max-w-7xl px-4 py-10">
+    <MenuPageClient client:load items={items ?? []} categories={categories ?? []} />
+  </div>
+
 </BaseLayout>
+
+<style>
+  .menu-header {
+    background: linear-gradient(180deg, #f4f0ff 0%, #ede8ff 100%);
+    border-bottom: 2px solid #e8e0ff;
+  }
+
+  .menu-emoji {
+    font-size: 2rem;
+    opacity: 0.15;
+    animation: floatEmoji 6s ease-in-out infinite;
+  }
+  .menu-emoji-1 { top: 15%; left: 8%;  animation-delay: 0s;    animation-duration: 5s; }
+  .menu-emoji-2 { top: 20%; right: 12%; animation-delay: -2s;  animation-duration: 7s; }
+  .menu-emoji-3 { top: 50%; left: 5%;  animation-delay: -1s;  animation-duration: 6s; }
+  .menu-emoji-4 { top: 40%; right: 8%; animation-delay: -3s;  animation-duration: 8s; }
+
+  @keyframes floatEmoji {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%       { transform: translateY(-12px) rotate(5deg); }
+  }
+</style>

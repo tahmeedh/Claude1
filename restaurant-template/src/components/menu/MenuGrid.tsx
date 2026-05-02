@@ -16,15 +16,23 @@ type MenuItem = {
 
 type Category = { id: string; name: string };
 
-type Props = { items: MenuItem[]; categories: Category[] };
+type Props = { items: MenuItem[]; categories: Category[]; onAddToCart?: () => void };
 
-export default function MenuGrid({ items, categories }: Props) {
+export default function MenuGrid({ items, categories, onAddToCart }: Props) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [addedIds, setAddedIds] = useState<Record<string, boolean>>({});
   const { add } = useCart();
 
   const filtered = activeCategory
     ? items.filter(i => i.category_id === activeCategory)
     : items;
+
+  function handleAdd(item: MenuItem) {
+    add({ id: item.id, name: item.name, price_cents: item.price_cents, image_url: item.image_url ?? undefined });
+    setAddedIds(prev => ({ ...prev, [item.id]: true }));
+    setTimeout(() => setAddedIds(prev => ({ ...prev, [item.id]: false })), 1500);
+    onAddToCart?.();
+  }
 
   return (
     <div>
@@ -66,7 +74,7 @@ export default function MenuGrid({ items, categories }: Props) {
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-lg font-semibold">${(item.price_cents / 100).toFixed(2)}</span>
-                  <div className="flex gap-1 mt-1">
+                  <div className="flex gap-1 mt-1 flex-wrap">
                     {item.dietary_tags.map(tag => (
                       <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
                     ))}
@@ -74,9 +82,11 @@ export default function MenuGrid({ items, categories }: Props) {
                 </div>
                 <Button
                   size="sm"
-                  onClick={() => add({ id: item.id, name: item.name, price_cents: item.price_cents, image_url: item.image_url ?? undefined })}
+                  variant={addedIds[item.id] ? 'outline' : 'default'}
+                  className={addedIds[item.id] ? 'border-green-500 text-green-600 min-w-[72px]' : 'min-w-[72px]'}
+                  onClick={() => handleAdd(item)}
                 >
-                  Add
+                  {addedIds[item.id] ? '✓ Added' : 'Add'}
                 </Button>
               </div>
             </CardContent>
