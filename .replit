@@ -42,7 +42,7 @@ externalPort = 3000
 
 [userenv.shared]
 RESTAURANT_TIMEZONE = "Europe/Madrid"
-PUBLIC_SITE_URL = "https://dcc6b7a2-8598-43b2-887a-2cfb8d86401c-00-15wlx4kqtd6j8.worf.replit.dev"
+PUBLIC_SITE_URL = "https://restaurantreplit.netlify.app"
 
 [postMerge]
 path = "scripts/post-merge.sh"
