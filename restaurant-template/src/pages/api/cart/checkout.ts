@@ -5,15 +5,18 @@ import { supabaseAdmin } from '../../../lib/supabase/admin';
 
 export const prerender = false;
 
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY);
+const STRIPE_SECRET_KEY = import.meta.env.STRIPE_SECRET_KEY ?? process.env.STRIPE_SECRET_KEY ?? '';
+const PUBLIC_SITE_URL = import.meta.env.PUBLIC_SITE_URL ?? process.env.PUBLIC_SITE_URL ?? 'https://restaurantreplit.netlify.app';
+
+const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 const Body = z.object({
-  items: z.array(z.object({ id: z.string().uuid(), quantity: z.number().int().positive() })).min(1),
+  items: z.array(z.object({ id: z.string().min(1), quantity: z.number().int().positive() })).min(1),
   fulfillment: z.enum(['pickup','delivery']),
   guest: z.object({
     name: z.string().min(1), email: z.string().email(), phone: z.string().min(7),
   }).optional(),
-  redeemRewardId: z.string().uuid().optional(),
+  redeemRewardId: z.string().optional(),
   promoCode: z.string().optional(),
 });
 
@@ -22,7 +25,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     body = Body.parse(await request.json());
   } catch (e) {
-    return new Response(JSON.stringify({ error: 'Invalid request body' }), { status: 400 });
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error('[checkout] body parse error:', msg);
+    return new Response(JSON.stringify({ error: 'Invalid request body', detail: msg }), { status: 400 });
   }
 
   // Re-fetch authoritative prices (never trust client)
@@ -128,8 +133,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     mode: 'payment',
     line_items: stripeLines,
     customer_email: locals.user?.email ?? body.guest?.email,
-    success_url: `${import.meta.env.PUBLIC_SITE_URL}/account/orders?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${import.meta.env.PUBLIC_SITE_URL}/menu`,
+    success_url: `${PUBLIC_SITE_URL}/account/orders?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${PUBLIC_SITE_URL}/menu`,
     metadata: {
       order_id: order.id,
       points_redeemed: String(pointsRedeemed),
