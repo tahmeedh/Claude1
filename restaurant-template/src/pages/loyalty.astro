@@ -26,24 +26,251 @@ const { data: rewards } = await supabase
   .order('points_cost');
 ---
 
-<BaseLayout title="Loyalty Program" description="Earn points and redeem rewards.">
-  <div class="mx-auto max-w-4xl px-4 py-10">
-    <h1 class="text-3xl font-bold mb-2">Loyalty Rewards</h1>
-    <p class="text-muted-foreground mb-8">Earn 1 point for every $1 you spend. Redeem points for discounts and free items.</p>
+<BaseLayout title="Loyalty Program — Restaurant City" description="Earn points on every order and unlock exclusive rewards at Restaurant City.">
 
-    {!user && (
-      <div class="rounded-lg border bg-muted/40 p-6 text-center mb-8">
-        <p class="font-medium">Sign in to view your points and rewards</p>
-        <a href="/account/login?next=/loyalty" class="mt-3 inline-block rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">Sign In</a>
+  {!user ? (
+    <!-- ── CAMPAIGN PAGE for non-logged-in visitors ── -->
+    <div>
+
+      <!-- Hero -->
+      <section class="lp-hero relative overflow-hidden py-24 px-4 text-center">
+        <!-- Animated stars background -->
+        <div class="lp-stars absolute inset-0 pointer-events-none"></div>
+
+        <div class="relative z-10 mx-auto max-w-3xl">
+          <div class="lp-badge inline-block mb-6 px-5 py-2 rounded-full text-sm font-bold uppercase tracking-widest">
+            ⭐ Loyalty Program
+          </div>
+          <h1 class="lp-title text-5xl font-bold tracking-tight sm:text-6xl mb-6">
+            Every Order<br />Earns Your Rewards
+          </h1>
+          <p class="lp-sub text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+            Join the Restaurant City Loyalty Club. Earn points with every bite, unlock exclusive perks, and get treated like royalty — starting with 50 free bonus points just for signing up.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/account/login?tab=signup" class="lp-btn-primary rounded-2xl px-8 py-3.5 text-base font-bold shadow-xl transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-95">
+              🎉 Join Free — Get 50 Bonus Points
+            </a>
+            <a href="/account/login" class="lp-btn-secondary rounded-2xl px-8 py-3.5 text-base font-bold shadow-xl transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-95">
+              Sign In to My Account
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section class="py-20 px-4 bg-white">
+        <div class="mx-auto max-w-5xl">
+          <h2 class="text-3xl font-bold text-center mb-4" style="color:#1a3050;">How It Works</h2>
+          <p class="text-center text-muted-foreground mb-14 max-w-xl mx-auto">Three simple steps between you and your next reward.</p>
+          <div class="grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {[
+              { step: '01', icon: '🍽', title: 'Order Online or Dine In', desc: 'Place any order through our website or simply dine in and ask staff to log your visit.' },
+              { step: '02', icon: '⭐', title: 'Earn 1 Point per $1', desc: 'Every dollar you spend adds to your points balance automatically — no scanning, no fuss.' },
+              { step: '03', icon: '🎁', title: 'Redeem for Free Perks', desc: 'Swap your points for free dishes, desserts, drinks, or exclusive money-off vouchers.' },
+            ].map(item => (
+              <div class="lp-step-card relative rounded-2xl p-8 text-center transition-transform hover:-translate-y-1">
+                <div class="lp-step-num absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold">{item.step}</div>
+                <div class="text-5xl mb-5 mt-2">{item.icon}</div>
+                <h3 class="font-bold text-lg mb-2" style="color:#1a3050;">{item.title}</h3>
+                <p class="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Points tiers -->
+      <section class="py-20 px-4" style="background:linear-gradient(180deg,#f0f8ff 0%,#e8f4ff 100%);">
+        <div class="mx-auto max-w-5xl">
+          <h2 class="text-3xl font-bold text-center mb-4" style="color:#1a3050;">Your Points, Your Perks</h2>
+          <p class="text-center text-muted-foreground mb-12 max-w-lg mx-auto">The more you earn, the better the rewards. Unlock higher tiers for even bigger benefits.</p>
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {[
+              { tier: 'Starter', range: '0–499 pts', color: '#7ec8f0', border: '#b0daf5', perks: ['1 pt per $1 spent', 'Birthday surprise', 'Early menu previews'], icon: '🌱' },
+              { tier: 'Regular', range: '500–1,999 pts', color: '#ff8aaa', border: '#ffb8cc', perks: ['1.25 pts per $1 spent', 'Free dessert at 500 pts', 'Priority reservations', 'Exclusive deals'], icon: '⭐', featured: true },
+              { tier: 'VIP', range: '2,000+ pts', color: '#fad848', border: '#fce880', perks: ['1.5 pts per $1 spent', 'Monthly free starter', 'Chef\'s table access', 'Invitations to events'], icon: '👑' },
+            ].map(tier => (
+              <div class={`lp-tier-card rounded-2xl p-6 ${tier.featured ? 'ring-2' : 'border'}`}
+                   style={tier.featured ? `ring-color:${tier.border};background:#fff;` : `border-color:${tier.border};background:#fff;`}>
+                {tier.featured && (
+                  <div class="lp-popular-badge text-xs font-bold uppercase tracking-widest rounded-full px-3 py-1 mb-3 inline-block">Most Popular</div>
+                )}
+                <div class="text-4xl mb-3">{tier.icon}</div>
+                <h3 class="font-bold text-xl mb-1" style={`color:${tier.color.replace('f0','c0')};`}>{tier.tier}</h3>
+                <p class="text-xs text-muted-foreground mb-4 font-medium">{tier.range}</p>
+                <ul class="space-y-2">
+                  {tier.perks.map(perk => (
+                    <li class="flex items-start gap-2 text-sm text-foreground">
+                      <span style={`color:${tier.color};`} class="mt-0.5 shrink-0">✓</span>
+                      {perk}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Selling points -->
+      <section class="py-20 px-4 bg-white">
+        <div class="mx-auto max-w-5xl">
+          <h2 class="text-3xl font-bold text-center mb-14" style="color:#1a3050;">Why Our Members Love It</h2>
+          <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { icon: '🎂', title: 'Birthday Magic', desc: 'Get a special surprise reward delivered to your account every year on your birthday. No strings attached.' },
+              { icon: '🚀', title: 'Instant Activation', desc: 'Points land on your account the moment your order is confirmed. No waiting, no approval needed.' },
+              { icon: '💌', title: 'Members-Only Deals', desc: 'Loyalty members receive exclusive email offers that are never available to the public.' },
+              { icon: '📱', title: 'Track Everything', desc: 'See your full points history, upcoming rewards, and tier progress right in your account dashboard.' },
+              { icon: '🔒', title: 'Points Never Expire', desc: 'As long as you order at least once every 12 months, your points stay safe and keep growing.' },
+              { icon: '👨‍🍳', title: 'VIP Chef Events', desc: 'Top-tier members get invitations to exclusive chef tasting evenings and seasonal menu launches.' },
+            ].map(sp => (
+              <div class="lp-feature-card rounded-2xl p-6 transition-all hover:-translate-y-1 hover:shadow-lg border border-border/50">
+                <div class="text-3xl mb-3">{sp.icon}</div>
+                <h3 class="font-bold mb-2" style="color:#1a3050;">{sp.title}</h3>
+                <p class="text-sm text-muted-foreground leading-relaxed">{sp.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Social proof -->
+      <section class="py-20 px-4" style="background:linear-gradient(180deg,#5ab4f0 0%,#42aadc 100%);">
+        <div class="mx-auto max-w-4xl text-center">
+          <h2 class="text-3xl font-bold text-white mb-12">What Our Members Say</h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {[
+              { quote: '"I earned enough points for a free pasta in just two visits. The rewards feel genuinely generous."', name: 'Sarah M.', tier: 'Regular Member' },
+              { quote: '"The birthday surprise was a whole free dessert platter. I didn\'t expect that at all — totally made my day."', name: 'James T.', tier: 'VIP Member' },
+              { quote: '"I love seeing points hit my account right after ordering. It makes every meal feel like a win."', name: 'Priya K.', tier: 'Starter Member' },
+            ].map(t => (
+              <div class="rounded-2xl bg-white/20 backdrop-blur p-6 text-left">
+                <p class="text-white/90 text-sm leading-relaxed mb-4 italic">"{t.quote}"</p>
+                <p class="text-white font-semibold text-sm">{t.name}</p>
+                <p class="text-white/70 text-xs">{t.tier}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="py-24 px-4 text-center bg-white">
+        <div class="mx-auto max-w-2xl">
+          <div class="text-6xl mb-6">🏆</div>
+          <h2 class="text-4xl font-bold mb-4" style="color:#1a3050;">Ready to Start Earning?</h2>
+          <p class="text-lg text-muted-foreground mb-10 max-w-lg mx-auto">
+            Join thousands of happy diners. Create your free account today and get <strong>50 bonus points</strong> instantly — enough to unlock your first reward faster.
+          </p>
+          <a href="/account/login?tab=signup" class="lp-btn-primary inline-block rounded-2xl px-10 py-4 text-lg font-bold shadow-xl transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-95">
+            🎉 Create Free Account Now
+          </a>
+          <p class="text-xs text-muted-foreground mt-4">No credit card required. Points never expire (with annual activity).</p>
+        </div>
+      </section>
+
+    </div>
+  ) : (
+    <!-- ── DASHBOARD for logged-in members ── -->
+    <div class="mx-auto max-w-4xl px-4 py-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-3xl">⭐</span>
+        <h1 class="text-3xl font-bold">My Loyalty Rewards</h1>
       </div>
-    )}
+      <p class="text-muted-foreground mb-8">Earn 1 point for every $1 you spend. Redeem points for discounts and free items.</p>
+      <LoyaltyCard
+        client:load
+        loyaltyPoints={loyaltyPoints}
+        lifetimePoints={lifetimePoints}
+        rewards={rewards ?? []}
+        transactions={transactions}
+      />
+    </div>
+  )}
 
-    <LoyaltyCard
-      client:load
-      loyaltyPoints={loyaltyPoints}
-      lifetimePoints={lifetimePoints}
-      rewards={rewards ?? []}
-      transactions={transactions}
-    />
-  </div>
 </BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .lp-hero {
+    background: linear-gradient(180deg, #1a3050 0%, #2a4870 60%, #3a5a90 100%);
+  }
+
+  .lp-title { color: #ffffff; text-shadow: 0 2px 12px rgba(90,180,240,0.4); }
+  .lp-sub   { color: #a8d0f0; }
+
+  .lp-badge {
+    background: rgba(255,255,255,0.15);
+    color: #fad848;
+    border: 2px solid rgba(250,216,72,0.4);
+    font-size: 0.78rem;
+  }
+
+  /* Stars bg */
+  .lp-stars {
+    background-image:
+      radial-gradient(1.5px 1.5px at 15% 20%, rgba(255,255,255,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 10%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(2px 2px at 70% 35%, rgba(250,216,72,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.8) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 30% 65%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 50%, rgba(250,216,72,0.6) 0%, transparent 100%),
+      radial-gradient(2px 2px at 90% 70%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 80%, rgba(250,216,72,0.8) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 60% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.7) 0%, transparent 100%);
+    animation: twinkle 4s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity: 0.7; }
+    to   { opacity: 1; }
+  }
+
+  /* Buttons */
+  .lp-btn-primary {
+    background: linear-gradient(180deg, #fad848 0%, #f0a020 100%);
+    color: #1a3050;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 0 #c07810, 0 6px 16px rgba(200,120,20,0.4);
+    text-shadow: none;
+  }
+  .lp-btn-primary:hover { box-shadow: 0 6px 0 #c07810, 0 8px 20px rgba(200,120,20,0.5); }
+
+  .lp-btn-secondary {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    border: 3px solid rgba(255,255,255,0.5);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2), 0 6px 16px rgba(0,0,0,0.15);
+    backdrop-filter: blur(8px);
+  }
+  .lp-btn-secondary:hover { box-shadow: 0 6px 0 rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.2); background: rgba(255,255,255,0.25); }
+
+  /* Step cards */
+  .lp-step-card {
+    background: #fff;
+    border: 2px solid #e8f4ff;
+    box-shadow: 0 4px 16px rgba(90,180,240,0.1);
+  }
+  .lp-step-num {
+    background: linear-gradient(180deg, #5ab4f0 0%, #42aadc 100%);
+    color: #fff;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+
+  /* Tier cards */
+  .lp-tier-card { transition: transform 0.2s, box-shadow 0.2s; }
+  .lp-tier-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(90,180,240,0.15); }
+
+  .lp-popular-badge {
+    background: linear-gradient(135deg, #ff8aaa 0%, #e8507a 100%);
+    color: #fff;
+  }
+
+  /* Feature cards */
+  .lp-feature-card { background: #fff; }
+  .lp-feature-card:hover { border-color: #b0daf5; }
+</style>

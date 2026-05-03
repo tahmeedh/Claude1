@@ -1,14 +1,18 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import tailwindcss from '@tailwindcss/vite';
 import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
+
+const isDev = process.env.NODE_ENV !== 'production';
 
 export default defineConfig({
   output: 'server',
-  adapter: netlify(),
+  adapter: isDev ? node({ mode: 'middleware' }) : netlify(),
   integrations: [react()],
   vite: {
-    plugins: [tailwindcss()],
+    define: {
+      __DEFINES__: '{}',
+    },
   },
   security: { checkOrigin: false },
   server: {

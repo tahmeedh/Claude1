@@ -10,18 +10,16 @@ const { data: featured } = supabase ? await supabase
   .limit(3) : { data: null };
 ---
 
-<BaseLayout title="Restaurant — Fine Dining" description="Welcome to our restaurant. Order online, make reservations, and earn rewards.">
+<BaseLayout title="Restaurant City — Fine Dining &amp; Restaurant Services" description="Restaurant City: order online, make reservations, earn rewards, or launch your own restaurant website.">
 
-  <!-- Hero: Restaurant City Game Style (flat 2D side-scrolling) -->
+  <!-- ══ HERO: Restaurant City Game Style ══ -->
   <section class="rc-hero relative overflow-hidden">
 
-    <!-- Sky -->
     <div class="rc-sky absolute inset-0"></div>
 
     <!-- Background city silhouette -->
     <div class="rc-city-bg absolute bottom-0 left-0 right-0">
       <svg viewBox="0 0 1440 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <!-- Far background buildings (grey silhouette) -->
         <rect x="0"    y="100" width="60"  height="160" fill="#8fa8c0" rx="3"/>
         <rect x="5"    y="60"  width="50"  height="45"  fill="#8fa8c0" rx="3"/>
         <rect x="65"   y="80"  width="80"  height="180" fill="#7a95b0" rx="3"/>
@@ -48,7 +46,6 @@ const { data: featured } = supabase ? await supabase
         <rect x="1270" y="65"  width="85"  height="195" fill="#7b95ab" rx="3"/>
         <rect x="1285" y="38"  width="55"  height="30"  fill="#7b95ab" rx="3"/>
         <rect x="1360" y="85"  width="80"  height="175" fill="#8da5bb" rx="3"/>
-        <!-- Windows on bg buildings -->
         <rect x="12"   y="75"  width="10" height="8" fill="#c8dff0" rx="1" opacity="0.7"/>
         <rect x="28"   y="75"  width="10" height="8" fill="#c8dff0" rx="1" opacity="0.6"/>
         <rect x="78"   y="65"  width="10" height="8" fill="#c8dff0" rx="1" opacity="0.7"/>
@@ -70,11 +67,8 @@ const { data: featured } = supabase ? await supabase
     <!-- Main street scene SVG -->
     <div class="rc-street absolute bottom-0 left-0 right-0">
       <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-
-        <!-- Sidewalk / street -->
         <rect x="0" y="255" width="1440" height="65" fill="#d4a0b0"/>
         <rect x="0" y="255" width="1440" height="8"  fill="#e8b8c8"/>
-        <!-- Pavement lines -->
         <rect x="0"   y="263" width="1440" height="2" fill="#c090a0" opacity="0.5"/>
         <rect x="100" y="255" width="3"    height="65" fill="#c090a0" opacity="0.3"/>
         <rect x="250" y="255" width="3"    height="65" fill="#c090a0" opacity="0.3"/>
@@ -85,17 +79,12 @@ const { data: featured } = supabase ? await supabase
         <rect x="1000" y="255" width="3"   height="65" fill="#c090a0" opacity="0.3"/>
         <rect x="1150" y="255" width="3"   height="65" fill="#c090a0" opacity="0.3"/>
         <rect x="1300" y="255" width="3"   height="65" fill="#c090a0" opacity="0.3"/>
-
-        <!-- ===== LEFT BUILDING (green/teal) ===== -->
-        <!-- Building body -->
+        <!-- Left building -->
         <rect x="0" y="95" width="310" height="165" fill="#f0efe8" rx="4"/>
-        <!-- Roof accent -->
         <rect x="0" y="90" width="310" height="12" fill="#e8c8d8" rx="2"/>
-        <!-- Sign board -->
         <rect x="60" y="105" width="190" height="45" fill="#fff8f0" rx="8"/>
         <rect x="63" y="108" width="184" height="39" fill="#fef0e0" rx="6"/>
         <text x="155" y="133" text-anchor="middle" font-size="18" font-weight="bold" fill="#c06080" font-family="sans-serif">La Piazza</text>
-        <!-- Arched windows -->
         <rect x="20"  y="160" width="55" height="70" fill="#e8c0d8" rx="28" opacity="0.9"/>
         <rect x="22"  y="162" width="51" height="40" fill="#f8e0ee" rx="26" opacity="0.8"/>
         <rect x="85"  y="160" width="55" height="70" fill="#c8b4e0" rx="28" opacity="0.9"/>
@@ -104,19 +93,16 @@ const { data: featured } = supabase ? await supabase
         <rect x="152" y="162" width="51" height="40" fill="#f8e0ee" rx="26" opacity="0.8"/>
         <rect x="215" y="160" width="55" height="70" fill="#c8b4e0" rx="28" opacity="0.9"/>
         <rect x="217" y="162" width="51" height="40" fill="#e0d0f8" rx="26" opacity="0.8"/>
-        <!-- Door -->
         <rect x="120" y="198" width="70" height="62" fill="#8b5e3c" rx="6"/>
         <rect x="126" y="202" width="26" height="40" fill="#a87850" rx="3"/>
         <rect x="158" y="202" width="26" height="40" fill="#a87850" rx="3"/>
         <circle cx="147" cy="224" r="3" fill="#d4a060"/>
         <circle cx="163" cy="224" r="3" fill="#d4a060"/>
-        <!-- Flower pots -->
         <ellipse cx="30" cy="256" rx="18" ry="10" fill="#8b6040"/>
         <rect x="16" y="240" width="28" height="16" fill="#9b7050" rx="2"/>
         <circle cx="22" cy="236" r="8" fill="#60a840"/>
         <circle cx="30" cy="232" r="10" fill="#70c050"/>
         <circle cx="38" cy="236" r="8" fill="#60a840"/>
-        <!-- pink flowers -->
         <circle cx="22" cy="230" r="4" fill="#ff90a0"/>
         <circle cx="30" cy="226" r="4" fill="#ff70a0"/>
         <circle cx="38" cy="230" r="4" fill="#ff90a0"/>
@@ -128,53 +114,40 @@ const { data: featured } = supabase ? await supabase
         <circle cx="272" cy="230" r="4" fill="#ff90a0"/>
         <circle cx="280" cy="226" r="4" fill="#ff70a0"/>
         <circle cx="288" cy="230" r="4" fill="#ff90a0"/>
-
-        <!-- ===== LEFT BUSH / TREE ===== -->
         <rect x="295" y="220" width="16" height="38" fill="#6b4226" rx="4"/>
         <ellipse cx="303" cy="214" rx="30" ry="28" fill="#5ab840"/>
         <ellipse cx="285" cy="222" rx="22" ry="20" fill="#4aaa30"/>
         <ellipse cx="322" cy="222" rx="22" ry="20" fill="#4aaa30"/>
         <ellipse cx="303" cy="200" rx="24" ry="22" fill="#6acf50"/>
-
-        <!-- ===== CENTRE MAIN BUILDING ===== -->
-        <!-- Building body -->
+        <!-- Centre main building -->
         <rect x="380" y="75" width="680" height="185" fill="#f5f3ec" rx="4"/>
-        <!-- Roof stripe -->
         <rect x="380" y="70" width="680" height="14" fill="#f0b8c8" rx="3"/>
-        <!-- Roof trim -->
         <rect x="380" y="82" width="680" height="6" fill="#e8a0b8"/>
-        <!-- Name sign -->
         <rect x="500" y="88" width="440" height="55" fill="#fff8f5" rx="10"/>
         <rect x="504" y="92" width="432" height="47" fill="#fff0e8" rx="8"/>
         <rect x="508" y="96" width="424" height="39" fill="none" stroke="#f0a0b8" stroke-width="2" rx="6"/>
-        <!-- Arched windows left side -->
+        <text x="720" y="121" text-anchor="middle" font-size="22" font-weight="bold" fill="#c06080" font-family="sans-serif">Restaurant City</text>
         <rect x="395" y="148" width="70" height="90" fill="#f0b4d0" rx="35" opacity="0.95"/>
         <rect x="398" y="150" width="64" height="55" fill="#fce0ee" rx="32" opacity="0.9"/>
         <rect x="475" y="148" width="70" height="90" fill="#c8aae8" rx="35" opacity="0.95"/>
         <rect x="478" y="150" width="64" height="55" fill="#e8d8fc" rx="32" opacity="0.9"/>
-        <!-- Arched windows right side -->
         <rect x="895" y="148" width="70" height="90" fill="#f0b4d0" rx="35" opacity="0.95"/>
         <rect x="898" y="150" width="64" height="55" fill="#fce0ee" rx="32" opacity="0.9"/>
         <rect x="975" y="148" width="70" height="90" fill="#c8aae8" rx="35" opacity="0.95"/>
         <rect x="978" y="150" width="64" height="55" fill="#e8d8fc" rx="32" opacity="0.9"/>
-        <!-- Main door (double) -->
         <rect x="660" y="175" width="120" height="90" fill="#8b5e3c" rx="8"/>
         <rect x="666" y="180" width="48" height="60" fill="#a07050" rx="4"/>
         <rect x="726" y="180" width="48" height="60" fill="#a07050" rx="4"/>
         <circle cx="716" cy="212" r="4" fill="#d4a060"/>
         <circle cx="724" cy="212" r="4" fill="#d4a060"/>
-        <!-- Door arch -->
         <ellipse cx="720" cy="178" rx="60" ry="20" fill="#8b5e3c"/>
         <ellipse cx="720" cy="176" rx="55" ry="16" fill="#9b6e4c"/>
-        <!-- Side doors -->
         <rect x="560" y="195" width="80" height="70" fill="#9b6e4c" rx="6"/>
         <rect x="800" y="195" width="80" height="70" fill="#9b6e4c" rx="6"/>
-        <!-- Flower boxes under windows -->
         <rect x="393" y="232" width="76" height="14" fill="#c87890" rx="4"/>
         <rect x="473" y="232" width="76" height="14" fill="#c87890" rx="4"/>
         <rect x="893" y="232" width="76" height="14" fill="#c87890" rx="4"/>
         <rect x="973" y="232" width="76" height="14" fill="#c87890" rx="4"/>
-        <!-- Flowers in boxes -->
         <circle cx="400" cy="228" r="5" fill="#ff8098"/>
         <circle cx="415" cy="225" r="6" fill="#ff60a0"/>
         <circle cx="430" cy="228" r="5" fill="#ff8098"/>
@@ -195,40 +168,31 @@ const { data: featured } = supabase ? await supabase
         <circle cx="1010" cy="228" r="5" fill="#ff8098"/>
         <circle cx="1025" cy="225" r="6" fill="#ffb0c0"/>
         <circle cx="1040" cy="228" r="5" fill="#ff8098"/>
-
-        <!-- ===== CENTRE BUSH / TREES ===== -->
-        <!-- Left of main entrance -->
         <rect x="340" y="215" width="18" height="42" fill="#6b4226" rx="4"/>
         <ellipse cx="349" cy="208" rx="36" ry="32" fill="#52b038"/>
         <ellipse cx="328" cy="220" rx="26" ry="24" fill="#42a028"/>
         <ellipse cx="370" cy="220" rx="26" ry="24" fill="#42a028"/>
         <ellipse cx="349" cy="192" rx="28" ry="26" fill="#62c848"/>
-        <!-- Right of main entrance -->
         <rect x="1082" y="215" width="18" height="42" fill="#6b4226" rx="4"/>
         <ellipse cx="1091" cy="208" rx="36" ry="32" fill="#52b038"/>
         <ellipse cx="1070" cy="220" rx="26" ry="24" fill="#42a028"/>
         <ellipse cx="1112" cy="220" rx="26" ry="24" fill="#42a028"/>
         <ellipse cx="1091" cy="192" rx="28" ry="26" fill="#62c848"/>
-
-        <!-- ===== RIGHT BUILDING (warm yellow) ===== -->
+        <!-- Right building -->
         <rect x="1130" y="105" width="310" height="155" fill="#f5f0e0" rx="4"/>
         <rect x="1130" y="100" width="310" height="12" fill="#e0d090" rx="2"/>
-        <!-- Sign -->
         <rect x="1180" y="115" width="210" height="45" fill="#fffce0" rx="8"/>
         <rect x="1183" y="118" width="204" height="39" fill="#fff8d0" rx="6"/>
         <text x="1285" y="143" text-anchor="middle" font-size="18" font-weight="bold" fill="#c09020" font-family="sans-serif">Bella Vista</text>
-        <!-- Arched windows -->
         <rect x="1145" y="165" width="55" height="70" fill="#f8d890" rx="28" opacity="0.9"/>
         <rect x="1147" y="167" width="51" height="42" fill="#fff8d0" rx="26" opacity="0.8"/>
         <rect x="1210" y="165" width="55" height="70" fill="#f0c070" rx="28" opacity="0.9"/>
         <rect x="1212" y="167" width="51" height="42" fill="#fff0b0" rx="26" opacity="0.8"/>
         <rect x="1275" y="165" width="55" height="70" fill="#f8d890" rx="28" opacity="0.9"/>
         <rect x="1277" y="167" width="51" height="42" fill="#fff8d0" rx="26" opacity="0.8"/>
-        <!-- Door -->
         <rect x="1340" y="198" width="70" height="62" fill="#8b5e3c" rx="6"/>
         <rect x="1346" y="202" width="26" height="40" fill="#a87850" rx="3"/>
         <rect x="1378" y="202" width="26" height="40" fill="#a87850" rx="3"/>
-        <!-- Flower pots -->
         <ellipse cx="1155" cy="256" rx="18" ry="10" fill="#8b6040"/>
         <rect x="1141" y="240" width="28" height="16" fill="#9b7050" rx="2"/>
         <circle cx="1147" cy="236" r="8" fill="#60a840"/>
@@ -245,21 +209,16 @@ const { data: featured } = supabase ? await supabase
         <circle cx="1407" cy="230" r="4" fill="#ffe060"/>
         <circle cx="1415" cy="226" r="4" fill="#ffc030"/>
         <circle cx="1423" cy="230" r="4" fill="#ffe060"/>
-
-        <!-- ===== SIGN POLES ===== -->
-        <!-- Left pole with star sign -->
+        <!-- Sign poles -->
         <rect x="312" y="130" width="8" height="128" fill="#b0b8c8" rx="3"/>
         <rect x="293" y="108" width="46" height="46" fill="#f8d840" rx="6"/>
         <rect x="297" y="112" width="38" height="38" fill="#fae850" rx="4"/>
         <polygon points="316,118 320,128 332,128 323,135 326,145 316,139 306,145 309,135 300,128 312,128" fill="#f0a020"/>
-        <!-- Right pole with star sign -->
         <rect x="1120" y="130" width="8" height="128" fill="#b0b8c8" rx="3"/>
         <rect x="1101" y="108" width="46" height="46" fill="#f8d840" rx="6"/>
         <rect x="1105" y="112" width="38" height="38" fill="#fae850" rx="4"/>
         <polygon points="1124,118 1128,128 1140,128 1131,135 1134,145 1124,139 1114,145 1117,135 1108,128 1120,128" fill="#f0a020"/>
-
-        <!-- ===== WALKING CHARACTERS ===== -->
-        <!-- Character 1 (left side, walking right) -->
+        <!-- Walking characters -->
         <g class="char-walk-1">
           <ellipse cx="100" cy="228" rx="12" ry="14" fill="#f9d0a0"/>
           <rect x="90" y="240" width="20" height="16" fill="#e06080" rx="3"/>
@@ -268,7 +227,6 @@ const { data: featured } = supabase ? await supabase
           <circle cx="100" cy="220" r="10" fill="#f9d0a0"/>
           <rect x="88" y="214" width="24" height="8" fill="#c04060" rx="4"/>
         </g>
-        <!-- Character 2 (right side, walking left) -->
         <g class="char-walk-2">
           <ellipse cx="1340" cy="228" rx="12" ry="14" fill="#f9d0a0"/>
           <rect x="1330" y="240" width="20" height="16" fill="#60c080" rx="3"/>
@@ -277,10 +235,19 @@ const { data: featured } = supabase ? await supabase
           <circle cx="1340" cy="220" r="10" fill="#f9d0a0"/>
           <rect x="1328" y="213" width="24" height="9" fill="#805000" rx="4"/>
         </g>
+        <!-- Floating coin animations -->
+        <g class="coin-float-1">
+          <circle cx="500" cy="230" r="10" fill="#fad848" opacity="0.9"/>
+          <text x="500" y="234" text-anchor="middle" font-size="10" fill="#c07810" font-weight="bold">$</text>
+        </g>
+        <g class="coin-float-2">
+          <circle cx="900" cy="210" r="8" fill="#fad848" opacity="0.8"/>
+          <text x="900" y="214" text-anchor="middle" font-size="8" fill="#c07810" font-weight="bold">$</text>
+        </g>
       </svg>
     </div>
 
-    <!-- Hero content (overlay) -->
+    <!-- Hero content overlay -->
     <div class="relative z-10 mx-auto max-w-3xl text-center px-4 pt-16 pb-64">
       <div class="rc-badge inline-block mb-4 px-5 py-2 rounded-full text-sm font-bold uppercase tracking-widest">
         ✨ Now Serving
@@ -302,177 +269,310 @@ const { data: featured } = supabase ? await supabase
     </div>
   </section>
 
-  <!-- Featured items -->
+  <!-- ══ ANIMATED VALUE PROPS ══ -->
+  <section class="vp-section py-20 px-4">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-3xl font-bold text-center mb-2 vp-heading">Why Guests Love Us</h2>
+      <p class="text-center text-muted-foreground mb-12">Everything you need for a great experience, every time.</p>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+
+        <div class="vp-card vp-card--pink group rounded-2xl p-8 text-center transition-all hover:-translate-y-2 hover:shadow-2xl cursor-default">
+          <div class="vp-icon-wrap mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl text-4xl group-hover:scale-110 transition-transform">
+            🚀
+          </div>
+          <h3 class="font-bold text-lg mb-2">Fast Pickup</h3>
+          <p class="text-sm text-muted-foreground leading-relaxed">Ready in 20–30 minutes. Order ahead, skip the wait, and pick up piping hot.</p>
+          <div class="vp-pulse mt-4 mx-auto h-1 w-12 rounded-full"></div>
+        </div>
+
+        <div class="vp-card vp-card--yellow group rounded-2xl p-8 text-center transition-all hover:-translate-y-2 hover:shadow-2xl cursor-default">
+          <div class="vp-icon-wrap mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl text-4xl group-hover:scale-110 transition-transform">
+            ⭐
+          </div>
+          <h3 class="font-bold text-lg mb-2">Loyalty Rewards</h3>
+          <p class="text-sm text-muted-foreground leading-relaxed">Earn 1 point per $1 spent. Redeem for free dishes, discounts, and VIP experiences.</p>
+          <div class="vp-pulse mt-4 mx-auto h-1 w-12 rounded-full"></div>
+        </div>
+
+        <div class="vp-card vp-card--blue group rounded-2xl p-8 text-center transition-all hover:-translate-y-2 hover:shadow-2xl cursor-default">
+          <div class="vp-icon-wrap mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl text-4xl group-hover:scale-110 transition-transform">
+            📅
+          </div>
+          <h3 class="font-bold text-lg mb-2">Easy Reservations</h3>
+          <p class="text-sm text-muted-foreground leading-relaxed">Book a table in seconds. Real-time availability, instant confirmation, zero hassle.</p>
+          <div class="vp-pulse mt-4 mx-auto h-1 w-12 rounded-full"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CHEF'S PICKS (if any) ══ -->
   {featured && featured.length > 0 && (
     <section class="mx-auto max-w-7xl px-4 py-16">
-      <h2 class="text-3xl font-bold mb-8 text-center">Chef's Picks</h2>
+      <h2 class="text-3xl font-bold mb-2 text-center">Chef's Picks</h2>
+      <p class="text-center text-muted-foreground mb-10">Our most-loved dishes, handpicked by the kitchen.</p>
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((item: { id: string; name: string; description: string | null; price_cents: number; image_url: string | null }) => (
-          <div class="rounded-xl border overflow-hidden hover:shadow-lg transition-shadow">
+          <div class="rounded-xl border overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1">
             {item.image_url && (
               <img src={item.image_url} alt={item.name} class="h-48 w-full object-cover" />
             )}
             <div class="p-4">
               <h3 class="font-semibold text-lg">{item.name}</h3>
               {item.description && <p class="text-sm text-muted-foreground mt-1">{item.description}</p>}
-              <p class="font-bold mt-2">${(item.price_cents / 100).toFixed(2)}</p>
+              <p class="font-bold mt-2 text-primary">${(item.price_cents / 100).toFixed(2)}</p>
             </div>
           </div>
         ))}
       </div>
       <div class="text-center mt-8">
-        <a href="/menu" class="text-primary font-medium hover:underline">View full menu →</a>
+        <a href="/menu" class="inline-block rounded-full border-2 border-primary px-6 py-2 text-primary font-medium hover:bg-primary hover:text-white transition-colors">View full menu →</a>
       </div>
     </section>
   )}
 
-  <!-- Value props -->
-  <section class="bg-muted/40 py-16 px-4">
-    <div class="mx-auto max-w-5xl grid grid-cols-1 gap-8 sm:grid-cols-3 text-center">
-      <div>
-        <div class="text-4xl mb-3">🚀</div>
-        <h3 class="font-semibold">Fast Pickup</h3>
-        <p class="text-sm text-muted-foreground mt-1">Ready in 20–30 minutes</p>
+  <!-- ══ SERVICES (B2B) ══ -->
+  <section class="svc-section py-24 px-4 relative overflow-hidden">
+    <div class="svc-bg absolute inset-0 pointer-events-none"></div>
+    <div class="relative z-10 mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4" style="background:rgba(250,216,72,0.2);color:#c07810;border:1.5px solid rgba(250,216,72,0.5);">For Restaurant Owners</div>
+        <h2 class="text-4xl font-bold mb-4" style="color:#1a3050;">Launch Your Restaurant<br/>Online in Days — Not Months</h2>
+        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">Restaurant City gives your business everything it needs to thrive online. We build the platform; you focus on the food.</p>
       </div>
-      <div>
-        <div class="text-4xl mb-3">⭐</div>
-        <h3 class="font-semibold">Loyalty Rewards</h3>
-        <p class="text-sm text-muted-foreground mt-1">Earn points on every order</p>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div class="svc-card rounded-2xl p-8 group transition-all hover:-translate-y-2">
+          <div class="svc-icon-wrap mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-3xl group-hover:scale-110 transition-transform" style="background:linear-gradient(135deg,#ffd6e0 0%,#ffb3c6 100%);">🌐</div>
+          <h3 class="text-xl font-bold mb-3" style="color:#1a3050;">Website Launch</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed mb-4">A fully custom, branded restaurant website with online ordering, your own menu management, and mobile-first design — live in under a week.</p>
+          <ul class="space-y-2 text-sm">
+            {['Custom branded design', 'Online ordering & cart', 'Menu management admin', 'Mobile & SEO optimized'].map(f => (
+              <li class="flex items-center gap-2"><span style="color:#e8507a;">✓</span><span>{f}</span></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="svc-card svc-card--featured rounded-2xl p-8 group transition-all hover:-translate-y-2">
+          <div class="svc-featured-badge text-xs font-bold uppercase tracking-widest rounded-full px-3 py-1 mb-4 inline-block">Most Popular</div>
+          <div class="svc-icon-wrap mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-3xl group-hover:scale-110 transition-transform" style="background:linear-gradient(135deg,#d4f0ff 0%,#a8dcfa 100%);">📣</div>
+          <h3 class="text-xl font-bold mb-3" style="color:#1a3050;">Marketing Campaigns</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed mb-4">Drive more covers and online orders with automated email campaigns, welcome discounts, birthday rewards, and seasonal promotions — all built in.</p>
+          <ul class="space-y-2 text-sm">
+            {['Automated email campaigns', 'Welcome promo codes', 'Birthday reward triggers', 'Customer segmentation'].map(f => (
+              <li class="flex items-center gap-2"><span style="color:#42aadc;">✓</span><span>{f}</span></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="svc-card rounded-2xl p-8 group transition-all hover:-translate-y-2">
+          <div class="svc-icon-wrap mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-3xl group-hover:scale-110 transition-transform" style="background:linear-gradient(135deg,#fffacc 0%,#fde880 100%);">⭐</div>
+          <h3 class="text-xl font-bold mb-3" style="color:#1a3050;">Loyalty Programs</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed mb-4">Turn one-time visitors into regulars with a fully managed points program. Customers earn on every order — online and in-house.</p>
+          <ul class="space-y-2 text-sm">
+            {['Points per dollar spent', 'Tiered member rewards', 'VIP event access', 'Redemption at checkout'].map(f => (
+              <li class="flex items-center gap-2"><span style="color:#f0a020;">✓</span><span>{f}</span></li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div>
-        <div class="text-4xl mb-3">📅</div>
-        <h3 class="font-semibold">Easy Reservations</h3>
-        <p class="text-sm text-muted-foreground mt-1">Book a table in seconds</p>
+
+      <div class="text-center mt-12">
+        <a href="/account/login" class="inline-block rounded-2xl px-10 py-4 text-base font-bold text-white shadow-xl transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-95" style="background:linear-gradient(180deg,#ff8aaa 0%,#e8507a 100%);box-shadow:0 4px 0 #b03060,0 6px 20px rgba(200,60,100,0.3);">
+          Get Started Free →
+        </a>
+        <p class="text-xs text-muted-foreground mt-3">No credit card required. Up and running in days.</p>
       </div>
     </div>
   </section>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <section class="py-20 px-4 bg-white">
+    <div class="mx-auto max-w-5xl">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl font-bold mb-3" style="color:#1a3050;">From Zero to Live in 4 Steps</h2>
+        <p class="text-muted-foreground max-w-lg mx-auto">We handle the technical complexity so you can focus on running a great restaurant.</p>
+      </div>
+      <div class="relative">
+        <!-- Connecting line -->
+        <div class="hiw-line hidden sm:block absolute top-10 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#f0b8c8 0%,#c8aae8 50%,#f8d890 100%);"></div>
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-4 relative z-10">
+          {[
+            { num: '1', icon: '🎨', title: 'Choose Your Style', desc: 'Pick a design theme that matches your restaurant\'s personality.' },
+            { num: '2', icon: '🍽', title: 'Add Your Menu', desc: 'Upload items, set prices, categories, and dietary tags in minutes.' },
+            { num: '3', icon: '🚀', title: 'Go Live', desc: 'We deploy your site on a fast global CDN with your own domain.' },
+            { num: '4', icon: '📈', title: 'Grow', desc: 'Activate campaigns, loyalty, and analytics to keep customers coming back.' },
+          ].map(step => (
+            <div class="text-center">
+              <div class="hiw-step-num mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-3xl shadow-lg">
+                {step.icon}
+              </div>
+              <div class="hiw-num text-xs font-bold uppercase tracking-widest mb-2" style="color:#c06080;">Step {step.num}</div>
+              <h3 class="font-bold mb-1" style="color:#1a3050;">{step.title}</h3>
+              <p class="text-sm text-muted-foreground">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TESTIMONIALS ══ -->
+  <section class="py-20 px-4" style="background:linear-gradient(180deg,#1a3050 0%,#2a4870 100%);">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-3xl font-bold text-center text-white mb-4">Loved by Restaurant Owners</h2>
+      <p class="text-center mb-12" style="color:#a8d0f0;">Real results from real restaurants using Restaurant City.</p>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        {[
+          { quote: '"We launched our site in 3 days. Online orders went up 40% in the first month. The loyalty program keeps customers coming back without us lifting a finger."', name: 'Marco Rossi', role: 'Owner, La Piazza', stars: 5 },
+          { quote: '"The welcome discount campaign tripled our email sign-ups. We now have a proper customer database and use it for monthly promotions. Game-changer."', name: 'Anya Chen', role: 'Manager, Sakura Garden', stars: 5 },
+          { quote: '"Our VIP members bring in 60% of our revenue. The tiered loyalty system motivates customers to hit the next level — and they love it."', name: 'Carlos Vega', role: 'Owner, Bella Vista', stars: 5 },
+        ].map(t => (
+          <div class="rounded-2xl p-6" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);">
+            <div class="flex gap-0.5 mb-4">
+              {Array(t.stars).fill(null).map(() => <span style="color:#fad848;">★</span>)}
+            </div>
+            <p class="text-white/90 text-sm leading-relaxed mb-5 italic">"{t.quote}"</p>
+            <div>
+              <p class="text-white font-semibold text-sm">{t.name}</p>
+              <p class="text-xs" style="color:#7ec8f0;">{t.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-14">
+        <a href="/account/login" class="inline-block rounded-2xl px-10 py-4 text-base font-bold transition-all hover:scale-105 active:scale-95" style="background:linear-gradient(180deg,#fad848 0%,#f0a020 100%);color:#1a3050;box-shadow:0 4px 0 #c07810,0 6px 20px rgba(200,120,20,0.4);">
+          🏙 Launch Your Restaurant City →
+        </a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
 
 <style>
-  .rc-hero {
-    min-height: 560px;
-  }
+  /* ── Hero ── */
+  .rc-hero { min-height: 560px; }
 
-  /* Sky — light blue like the game */
   .rc-sky {
-    background: linear-gradient(180deg,
-      #5ab4f0 0%,
-      #7dc8f8 35%,
-      #a8dcfc 65%,
-      #c8ecff 100%
-    );
+    background: linear-gradient(180deg, #5ab4f0 0%, #7dc8f8 35%, #a8dcfc 65%, #c8ecff 100%);
   }
 
-  /* Clouds */
   .rc-cloud {
     background: #fff;
     border-radius: 50px;
     filter: drop-shadow(0 4px 8px rgba(130,190,240,0.3));
   }
-  .rc-cloud::before,
-  .rc-cloud::after {
+  .rc-cloud::before, .rc-cloud::after {
     content: '';
     position: absolute;
     background: #fff;
     border-radius: 50%;
   }
-
-  .rc-cloud-1 {
-    width: 160px; height: 52px;
-    top: 8%; left: -170px;
-    animation: rcCloud 30s linear infinite;
-  }
-  .rc-cloud-1::before { width: 80px; height: 70px; top: -28px; left: 28px; }
-  .rc-cloud-1::after  { width: 56px; height: 50px; top: -20px; left: 84px; }
-
-  .rc-cloud-2 {
-    width: 120px; height: 40px;
-    top: 22%; left: -130px;
-    animation: rcCloud 42s linear infinite;
-    animation-delay: -14s;
-  }
-  .rc-cloud-2::before { width: 60px; height: 54px; top: -22px; left: 20px; }
-  .rc-cloud-2::after  { width: 44px; height: 38px; top: -14px; left: 64px; }
-
-  .rc-cloud-3 {
-    width: 140px; height: 46px;
-    top: 12%; left: -150px;
-    animation: rcCloud 55s linear infinite;
-    animation-delay: -28s;
-  }
-  .rc-cloud-3::before { width: 70px; height: 62px; top: -26px; left: 24px; }
-  .rc-cloud-3::after  { width: 50px; height: 44px; top: -18px; left: 76px; }
+  .rc-cloud-1 { width:160px;height:52px;top:8%;left:-170px; animation:rcCloud 30s linear infinite; }
+  .rc-cloud-1::before { width:80px;height:70px;top:-28px;left:28px; }
+  .rc-cloud-1::after  { width:56px;height:50px;top:-20px;left:84px; }
+  .rc-cloud-2 { width:120px;height:40px;top:22%;left:-130px; animation:rcCloud 42s linear infinite;animation-delay:-14s; }
+  .rc-cloud-2::before { width:60px;height:54px;top:-22px;left:20px; }
+  .rc-cloud-2::after  { width:44px;height:38px;top:-14px;left:64px; }
+  .rc-cloud-3 { width:140px;height:46px;top:12%;left:-150px; animation:rcCloud 55s linear infinite;animation-delay:-28s; }
+  .rc-cloud-3::before { width:70px;height:62px;top:-26px;left:24px; }
+  .rc-cloud-3::after  { width:50px;height:44px;top:-18px;left:76px; }
 
   @keyframes rcCloud {
-    from { transform: translateX(0); }
-    to   { transform: translateX(1700px); }
+    from { transform:translateX(0); }
+    to   { transform:translateX(1700px); }
   }
 
-  /* Background city silhouette */
-  .rc-city-bg {
-    height: 260px;
-    opacity: 0.65;
-  }
-  .rc-city-bg svg { width: 100%; height: 100%; }
+  .rc-city-bg { height:260px;opacity:0.65; }
+  .rc-city-bg svg { width:100%;height:100%; }
+  .rc-street { height:320px;pointer-events:none; }
+  .rc-street svg { width:100%;height:100%; }
 
-  /* Street scene */
-  .rc-street {
-    height: 320px;
-    pointer-events: none;
-  }
-  .rc-street svg { width: 100%; height: 100%; }
+  /* Walking characters */
+  .char-walk-1 { animation:walkRight 18s linear infinite; }
+  .char-walk-2 { animation:walkLeft  22s linear infinite; }
+  @keyframes walkRight { 0%{transform:translateX(-160px)}100%{transform:translateX(300px)} }
+  @keyframes walkLeft  { 0%{transform:translateX(120px)} 100%{transform:translateX(-340px)} }
 
-  /* Walking character animations */
-  .char-walk-1 { animation: walkRight 18s linear infinite; }
-  .char-walk-2 { animation: walkLeft  22s linear infinite; }
-
-  @keyframes walkRight {
-    0%   { transform: translateX(-160px); }
-    100% { transform: translateX(300px); }
-  }
-  @keyframes walkLeft {
-    0%   { transform: translateX(120px); }
-    100% { transform: translateX(-340px); }
+  /* Floating coins */
+  .coin-float-1 { animation:coinFloat 3s ease-in-out infinite; }
+  .coin-float-2 { animation:coinFloat 4s ease-in-out infinite; animation-delay:-1.5s; }
+  @keyframes coinFloat {
+    0%,100% { transform:translateY(0) rotate(0deg); opacity:0.9; }
+    50%      { transform:translateY(-18px) rotate(15deg); opacity:0.6; }
   }
 
   /* Hero text */
-  .rc-title {
-    color: #1a3050;
-    text-shadow: 0 2px 0 rgba(255,255,255,0.8), 0 4px 12px rgba(90,180,240,0.3);
+  .rc-title { color:#1a3050; text-shadow:0 2px 0 rgba(255,255,255,0.8),0 4px 12px rgba(90,180,240,0.3); }
+  .rc-sub   { color:#2a4870; }
+  .rc-badge { background:#fff;color:#c06080;border:2px solid #f0b8c8;box-shadow:0 2px 8px rgba(200,120,160,0.2);font-size:0.8rem; }
+
+  .rc-btn-primary  { background:linear-gradient(180deg,#ff8aaa 0%,#e8507a 100%);color:#fff;border:3px solid #fff;box-shadow:0 4px 0 #b03060,0 6px 16px rgba(200,60,100,0.35);text-shadow:0 1px 2px rgba(0,0,0,0.2); }
+  .rc-btn-primary:hover  { box-shadow:0 6px 0 #b03060,0 8px 20px rgba(200,60,100,0.4); }
+  .rc-btn-secondary{ background:linear-gradient(180deg,#7ad4f8 0%,#42aadc 100%);color:#fff;border:3px solid #fff;box-shadow:0 4px 0 #2880b0,0 6px 16px rgba(40,140,200,0.35);text-shadow:0 1px 2px rgba(0,0,0,0.2); }
+  .rc-btn-secondary:hover{ box-shadow:0 6px 0 #2880b0,0 8px 20px rgba(40,140,200,0.4); }
+
+  /* ── Animated Value Props ── */
+  .vp-section { background:linear-gradient(180deg,#f8faff 0%,#eef6ff 100%); }
+  .vp-heading { color:#1a3050; }
+
+  .vp-card { border:2px solid transparent; }
+
+  .vp-card--pink {
+    background:linear-gradient(145deg,#fff5f7 0%,#ffe8ef 100%);
+    border-color:#ffc8d8;
   }
-  .rc-sub {
-    color: #2a4870;
+  .vp-card--pink .vp-icon-wrap { background:linear-gradient(135deg,#ffd6e0 0%,#ffb3c6 100%); }
+  .vp-card--pink .vp-pulse { background:linear-gradient(90deg,#ff8aaa,#e8507a); animation:pulseBar 2s ease-in-out infinite; }
+
+  .vp-card--yellow {
+    background:linear-gradient(145deg,#fffdf0 0%,#fff8cc 100%);
+    border-color:#fde880;
+  }
+  .vp-card--yellow .vp-icon-wrap { background:linear-gradient(135deg,#fffacc 0%,#fde880 100%); }
+  .vp-card--yellow .vp-pulse { background:linear-gradient(90deg,#fad848,#f0a020); animation:pulseBar 2.4s ease-in-out infinite; animation-delay:0.4s; }
+
+  .vp-card--blue {
+    background:linear-gradient(145deg,#f0f8ff 0%,#d8eeff 100%);
+    border-color:#b0daf5;
+  }
+  .vp-card--blue .vp-icon-wrap { background:linear-gradient(135deg,#d4f0ff 0%,#a8dcfa 100%); }
+  .vp-card--blue .vp-pulse { background:linear-gradient(90deg,#7ad4f8,#42aadc); animation:pulseBar 2.8s ease-in-out infinite; animation-delay:0.8s; }
+
+  .vp-card:hover { box-shadow:0 12px 32px rgba(90,180,240,0.18); }
+
+  @keyframes pulseBar {
+    0%,100% { transform:scaleX(0.6);opacity:0.6; }
+    50%      { transform:scaleX(1.4);opacity:1; }
   }
 
-  /* Badge */
-  .rc-badge {
-    background: #fff;
-    color: #c06080;
-    border: 2px solid #f0b8c8;
-    box-shadow: 0 2px 8px rgba(200,120,160,0.2);
-    font-size: 0.8rem;
+  /* ── Services ── */
+  .svc-section { background:linear-gradient(180deg,#fff8f5 0%,#fff0ea 100%); }
+  .svc-bg {
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(248,200,216,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(200,200,240,0.2) 0%, transparent 50%);
+  }
+  .svc-card {
+    background:#fff;
+    border:2px solid #f0e8e0;
+    box-shadow:0 4px 16px rgba(200,120,160,0.08);
+  }
+  .svc-card:hover { box-shadow:0 12px 32px rgba(200,120,160,0.16); border-color:#f0c8d8; }
+  .svc-card--featured {
+    border-color:#f0b8c8;
+    background:linear-gradient(145deg,#fff5f8 0%,#fff 100%);
+    box-shadow:0 8px 24px rgba(200,80,120,0.15);
+  }
+  .svc-featured-badge {
+    background:linear-gradient(135deg,#ff8aaa 0%,#e8507a 100%);
+    color:#fff;
   }
 
-  /* Buttons */
-  .rc-btn-primary {
-    background: linear-gradient(180deg, #ff8aaa 0%, #e8507a 100%);
-    color: #fff;
-    border: 3px solid #fff;
-    box-shadow: 0 4px 0 #b03060, 0 6px 16px rgba(200,60,100,0.35);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  }
-  .rc-btn-primary:hover {
-    box-shadow: 0 6px 0 #b03060, 0 8px 20px rgba(200,60,100,0.4);
-  }
-
-  .rc-btn-secondary {
-    background: linear-gradient(180deg, #7ad4f8 0%, #42aadc 100%);
-    color: #fff;
-    border: 3px solid #fff;
-    box-shadow: 0 4px 0 #2880b0, 0 6px 16px rgba(40,140,200,0.35);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  }
-  .rc-btn-secondary:hover {
-    box-shadow: 0 6px 0 #2880b0, 0 8px 20px rgba(40,140,200,0.4);
-  }
+  /* ── How it works ── */
+  .hiw-step-num { background:#fff;border:3px solid #f0b8c8;box-shadow:0 4px 12px rgba(200,120,160,0.15); }
+  .hiw-line { top:40px;margin:0 80px; }
 </style>

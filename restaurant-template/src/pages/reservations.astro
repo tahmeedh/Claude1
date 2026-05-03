@@ -3,12 +3,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ReservationForm from '../components/reservation/ReservationForm';
 ---
 
-<BaseLayout title="Reservations" description="Book a table at our restaurant.">
-  <div class="mx-auto max-w-3xl px-4 py-10">
-    <h1 class="text-3xl font-bold mb-2">Make a Reservation</h1>
-    <p class="text-muted-foreground mb-8">
-      Reserve your table online. Parties up to 20 guests — for larger events, please call us.
-    </p>
+<BaseLayout title="Reservations — Restaurant City" description="Book a table at Restaurant City. Real-time availability, instant confirmation.">
+
+  <!-- RC-themed page header -->
+  <div class="rsv-header py-12 px-4 text-center relative overflow-hidden">
+    <div class="rsv-deco-left absolute left-0 top-0 bottom-0 w-32 pointer-events-none opacity-30"></div>
+    <div class="rsv-deco-right absolute right-0 top-0 bottom-0 w-32 pointer-events-none opacity-30"></div>
+    <div class="relative z-10">
+      <div class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4" style="background:rgba(240,184,200,0.3);color:#c06080;border:1.5px solid rgba(240,184,200,0.6);">
+        📅 Table Reservations
+      </div>
+      <h1 class="text-4xl font-bold mb-3" style="color:#1a3050;">Make a Reservation</h1>
+      <p class="text-muted-foreground max-w-md mx-auto">
+        Reserve your table in seconds. Parties up to 20 guests — for larger events, please call us directly.
+      </p>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-3xl px-4 pb-16">
     <ReservationForm client:load />
   </div>
+
 </BaseLayout>
+
+<style>
+  .rsv-header {
+    background: linear-gradient(180deg, #f8f4ff 0%, #f0eeff 100%);
+    border-bottom: 2px solid #f0e8ff;
+  }
+  .rsv-deco-left {
+    background: url("data:image/svg+xml,%3Csvg width='120' height='200' viewBox='0 0 120 200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='10' y='60' width='40' height='140' fill='%23e8c0d8' rx='3'/%3E%3Crect x='10' y='50' width='40' height='14' fill='%23f0b8c8' rx='2'/%3E%3Crect x='60' y='80' width='50' height='120' fill='%23c8b4e0' rx='3'/%3E%3Crect x='60' y='70' width='50' height='14' fill='%23c0a8d8' rx='2'/%3E%3C/svg%3E") no-repeat bottom left;
+    background-size: contain;
+  }
+  .rsv-deco-right {
+    background: url("data:image/svg+xml,%3Csvg width='120' height='200' viewBox='0 0 120 200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='70' y='60' width='40' height='140' fill='%23e8c0d8' rx='3'/%3E%3Crect x='70' y='50' width='40' height='14' fill='%23f0b8c8' rx='2'/%3E%3Crect x='10' y='80' width='50' height='120' fill='%23c8b4e0' rx='3'/%3E%3Crect x='10' y='70' width='50' height='14' fill='%23c0a8d8' rx='2'/%3E%3C/svg%3E") no-repeat bottom right;
+    background-size: contain;
+  }
+</style>
